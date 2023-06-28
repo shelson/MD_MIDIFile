@@ -343,7 +343,7 @@ int MD_MIDIFile::load(const char *fname)
   _trackCount = dat16;
 
   // read ticks per quarter note
-  _fd.readBytes((char *)&dat16, sizeof(uint16_t)));
+  _fd.readBytes((char *)&dat16, sizeof(uint16_t));
   if (dat16 & 0x8000) // top bit set is SMTE format
   {
     int framespersecond = (dat16 >> 8) & 0x00ff;
