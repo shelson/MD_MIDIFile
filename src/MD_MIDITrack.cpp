@@ -87,6 +87,8 @@ bool MD_MFTrack::getNextEvent(MD_MIDIFile *mf, uint16_t tickCount)
   // move the file pointer to where we left off
   mf->_fd.seek(_startOffset+_currOffset, SeekSet);
 
+  DUMP("\nPos: ", fd.position());
+
   // Work out new total elapsed ticks - include the overshoot from
   // last event.
   _elapsedTicks += tickCount;
