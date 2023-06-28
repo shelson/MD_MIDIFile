@@ -222,7 +222,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
     // The length parameter includes the 0xF7 but not the start boundary.
     // However, it may be bigger than our buffer will allow us to store.
     for (uint16_t i=index; i<minLen; ++i)
-      sev.data[i] = mf->_fd.readBytes();
+      mf->_fd.readBytes((char *)&sev.data[i], sizeof(char));
     if (sev.size>minLen)
       mf->_fd.seek(sev.size-minLen, SeekCur);
 
@@ -246,7 +246,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
   {
     meta_event mev;
 
-    eType = mf->_fd.readBytes();
+    mf->_fd.readBytes((char *)&eType, sizeof(char));
     mLen =  readVarLen(&mf->_fd);
 
     mev.track = _trackId;
