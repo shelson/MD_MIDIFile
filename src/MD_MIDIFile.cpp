@@ -301,7 +301,7 @@ int MD_MIDIFile::load(const char *fname)
   {
     char    h[MTHD_HDR_SIZE+1]; // Header characters + nul
 
-    _fd.readBytes((char *) h, MTHD_HDR_SIZE+1);
+    _fd.readBytes((char *) &h, MTHD_HDR_SIZE+1);
     h[MTHD_HDR_SIZE] = '\0';
 
     if (strcmp(h, MTHD_HDR) != 0)
