@@ -52,7 +52,8 @@
  * \param nLen  one of MB_LONG, MB_TRYTE, MB_WORD, MB_BYTE to specify the number of bytes to read.
  * \return the value read as a 4 byte integer. This should be cast to the expected size if required.
  */
-uint32_t readMultiByte(File *f, uint8_t nLen);
+uint32_t readFourByteInteger(File *f);
+uint16_t readTwoByteInteger(File *f);
 
 /**
  * Read a variable length parameter from the input stream

@@ -28,18 +28,32 @@
  * \brief Main file for helper functions implementation
  */
 
-uint32_t readMultiByte(File *f, uint8_t nLen)
+uint32_t readFourByteInteger(File *f)
 // read fixed length parameter from input
 {
   uint32_t  value = 0L;
   
-  for (uint8_t i=0; i<nLen; i++)
+  for (uint8_t i=0; i<4; i++)
   {
     value = (value << 8) + f->read();
   }
   
   return(value);
 }
+
+uint16_t readTwoByteInteger(File *f)
+// read fixed length parameter from input
+{
+  uint16_t  value = 0L;
+  
+  for (uint8_t i=0; i<2; i++)
+  {
+    value = (value << 8) + f->read();
+  }
+  
+  return(value);
+}
+
 
 uint32_t readVarLen(File *f)
 // read variable length parameter from input
