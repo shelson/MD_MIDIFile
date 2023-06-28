@@ -304,8 +304,10 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
       case 0x59:  // Key Signature
       {
         DUMPS("KEY SIGNATURE");
-        int8_t sf = mf->_fd.readBytes();
-        uint8_t mi = mf->_fd.readBytes();
+        int8_t sf;
+        uint8_t mi;
+        mf->_fd.readBytes((int8 *) sf, sizeof(int8_t)));
+        mf->_fd.readBytes((uint8_t *) mi, sizeof(uint8_t)));
         const char* aaa[] = {"Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F", "C", "G", "D", "A", "E", "B", "F#", "C#", "G#", "D#", "A#"};
 
         if (sf >= -7 && sf <= 7) 
@@ -333,7 +335,8 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
 
       case 0x00:  // Sequence Number
       {
-        uint16_t x = readMultiByte(&mf->_fd, MB_WORD);
+        uint16_t x;
+        &mf->_fd.readBytes((uint16_t *) x, sizeof(MB_WORD));
 
         mev.data[0] = (x >> 8) & 0xFF;
         mev.data[1] = x & 0xFF;
