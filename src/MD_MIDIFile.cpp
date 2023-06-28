@@ -72,9 +72,9 @@ MD_MIDIFile::~MD_MIDIFile()
   close();
 }
 
-void MD_MIDIFile::begin(SPIFFS *psd)
+void MD_MIDIFile::begin()
 {
-  _sd = psd;
+  SPIFFS.begin(true);
 }
 
 void MD_MIDIFile::close()
@@ -295,7 +295,7 @@ int MD_MIDIFile::load(const char *fname)
     return(E_NO_FILE);
 
   // open the file for reading
-  if (!_fd.open(_fileName, O_READ)) 
+  if (!_fd = SPIFFS.open(_fileName, O_READ)) 
     return(E_NO_OPEN);
 
   // Read the MIDI header
