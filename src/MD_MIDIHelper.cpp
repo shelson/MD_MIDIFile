@@ -41,6 +41,20 @@ uint32_t readFourByteInteger(File *f)
   return(value);
 }
 
+uint32_t readThreeByteInteger(File *f)
+// read fixed length parameter from input
+{
+  uint32_t  value = 0L;
+  
+  for (uint8_t i=0; i<3; i++)
+  {
+    value = (value << 8) + f->read();
+  }
+  
+  return(value);
+}
+
+
 uint16_t readTwoByteInteger(File *f)
 // read fixed length parameter from input
 {

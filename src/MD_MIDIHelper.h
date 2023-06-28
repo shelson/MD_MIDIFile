@@ -53,6 +53,7 @@
  * \return the value read as a 4 byte integer. This should be cast to the expected size if required.
  */
 uint32_t readFourByteInteger(File *f);
+uint32_t readThreeByteInteger(File *f);
 uint16_t readTwoByteInteger(File *f);
 
 /**

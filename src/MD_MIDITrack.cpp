@@ -268,7 +268,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
 
       case 0x51:  // set Tempo - really the microseconds per tick
       {
-        uint32_t value = readMultiByte(&mf->_fd, MB_TRYTE);
+        uint32_t value = readThreeByteInteger(&mf->_fd);
         
         mf->setMicrosecondPerQuarterNote(value);
         
