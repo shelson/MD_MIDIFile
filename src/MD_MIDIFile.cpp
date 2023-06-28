@@ -74,7 +74,7 @@ MD_MIDIFile::~MD_MIDIFile()
 
 void MD_MIDIFile::begin()
 {
-  SPIFFS.begin(true);
+  //SPIFFS.begin(true);
 }
 
 void MD_MIDIFile::close()
@@ -295,21 +295,20 @@ int MD_MIDIFile::load(const char *fname)
     return(E_NO_FILE);
 
   // open the file for reading
-  _fd = SPIFFS.open(_fileName);
+  SPIFFS.begin();
+  File _fd = SPIFFS.open(_fileName);
 
   // Read the MIDI header
   // header chunk = "MThd" + <header_length:4> + <format:2> + <num_tracks:2> + <time_division:2>
+  char h[MTHD_HDR_SIZE+1]; // Header characters + nul
+
+  _fd.readBytes((char *) &h, MTHD_HDR_SIZE+1);
+  h[MTHD_HDR_SIZE] = '\0';
+
+  if (strcmp(h, MTHD_HDR) != 0)
   {
-    char    h[MTHD_HDR_SIZE+1]; // Header characters + nul
-
-    _fd.readBytes((char *) &h, MTHD_HDR_SIZE+1);
-    h[MTHD_HDR_SIZE] = '\0';
-
-    if (strcmp(h, MTHD_HDR) != 0)
-    {
-      _fd.close();
-      return(E_NOT_MIDI);
-    }
+    _fd.close();
+    return(E_NOT_MIDI);
   }
 
   // read header size
