@@ -781,7 +781,7 @@ public:
    * \param psd Pointer to the SDFat object.
    * \return No return data.
    */
-  void begin(SPIFFS *psd);
+  void begin();
 
   //--------------------------------------------------------------
   /** \name Methods for MIDI time base
