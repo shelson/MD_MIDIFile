@@ -23,6 +23,7 @@
 #include <string.h>
 #include "MD_MIDIFile.h"
 #include "MD_MIDIHelper.h"
+#include "SPIFFS.h"
 
 /**
  * \file
