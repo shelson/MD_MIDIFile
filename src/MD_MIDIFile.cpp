@@ -294,7 +294,7 @@ int MD_MIDIFile::load(const char *fname)
     return(E_NO_FILE);
 
   // open the file for reading
-  if (!_fd = SPIFFS.open(_fileName, FILE_READ)) 
+  if (!_fd = SPIFFS.open(_fileName)); 
     return(E_NO_OPEN);
 
   // Read the MIDI header

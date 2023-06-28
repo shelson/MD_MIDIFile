@@ -224,7 +224,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
     for (uint16_t i=index; i<minLen; ++i)
       sev.data[i] = mf->_fd.read();
     if (sev.size>minLen)
-      mf->_fd.seekCur(sev.size-minLen, SeekSet);
+      mf->_fd.seek(sev.size-minLen, SeekCur);
 
 #if DUMP_DATA
     DUMPS("[SYSX] Data:");
