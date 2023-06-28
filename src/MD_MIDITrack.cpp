@@ -160,7 +160,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
     _mev.data[0] = eType;
     _mev.channel = _mev.data[0] & 0xf;  // mask off the channel
     _mev.data[0] = _mev.data[0] & 0xf0; // just the command byte
-    _mev.data[1] = mf->_fd.readBytes();
+    mf->_fd.readBytes((char *)&_mev.data[1], sizeof(char));
     DUMP("[MID1] Ch: ", _mev.channel);
     DUMPX(" Data: ", _mev.data[0]);
     DUMPX(" ", _mev.data[1]);
@@ -185,7 +185,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
     _mev.data[1] = eType;
     for (uint8_t i = 2; i < _mev.size; i++)
     {
-      _mev.data[i] = mf->_fd.readBytes();  // next byte
+      mf->_fd.readBytes((char *)&_mev.data[i], sizeof(char)); // next byte
     } 
 
     DUMP("[MID+] Ch: ", _mev.channel);
