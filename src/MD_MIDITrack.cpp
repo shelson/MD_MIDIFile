@@ -85,7 +85,7 @@ bool MD_MFTrack::getNextEvent(MD_MIDIFile *mf, uint16_t tickCount)
     return(false);
 
   // move the file pointer to where we left off
-  mf->_fd.seekSet(_startOffset+_currOffset);
+  mf->_fd.seek(_startOffset+_currOffset);
 
   // Work out new total elapsed ticks - include the overshoot from
   // last event.
@@ -454,7 +454,7 @@ int MD_MFTrack::load(uint8_t trackId, MD_MIDIFile *mf)
   {
     char    h[MTRK_HDR_SIZE+1]; // Header characters + nul
   
-    mf->_fd.fgets(h, MTRK_HDR_SIZE+1);
+    mf->_fd.read(h, MTRK_HDR_SIZE+1);
     h[MTRK_HDR_SIZE] = '\0';
 
     if (strcmp(h, MTRK_HDR) != 0)
@@ -471,7 +471,7 @@ int MD_MFTrack::load(uint8_t trackId, MD_MIDIFile *mf)
   _currOffset = 0;
 
   // Advance the file pointer to the start of the next track;
-  if (!mf->_fd.seekSet(_startOffset+_length))
+  if (!mf->_fd.seek(_startOffset+_length))
     return(1);
 
   return(-1);

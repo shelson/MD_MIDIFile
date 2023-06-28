@@ -294,7 +294,7 @@ int MD_MIDIFile::load(const char *fname)
     return(E_NO_FILE);
 
   // open the file for reading
-  if (!_fd = SPIFFS.open(_fileName, O_READ)) 
+  if (!_fd = SPIFFS.open(_fileName, FILE_READ)) 
     return(E_NO_OPEN);
 
   // Read the MIDI header
@@ -302,7 +302,7 @@ int MD_MIDIFile::load(const char *fname)
   {
     char    h[MTHD_HDR_SIZE+1]; // Header characters + nul
 
-    _fd.fgets(h, MTHD_HDR_SIZE+1);
+    _fd.read(h, MTHD_HDR_SIZE+1);
     h[MTHD_HDR_SIZE] = '\0';
 
     if (strcmp(h, MTHD_HDR) != 0)
