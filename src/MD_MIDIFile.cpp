@@ -314,7 +314,7 @@ int MD_MIDIFile::load(const char *fname)
   }
 
   // read header size
-  dat32 = readMultiByte(_fd, 4);
+  dat32 = readMultiByte(&_fd, 4);
   //_fd.readBytes((char *) &dat32, sizeof(uint32_t));
   if (dat32 != 6)   // must be 6 for this header
   {
