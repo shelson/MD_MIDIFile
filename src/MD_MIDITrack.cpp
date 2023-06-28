@@ -285,8 +285,8 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
       case 0x58:  // time signature
       {
         uint8_t n, d;
-        mf->_fd.readBytes((uint8_t *) n, sizeof(uint8_t)));
-        mf->_fd.readBytes((uint8_t *) d, sizeof(uint8_t)));
+        mf->_fd.readBytes((uint8_t *) &n, sizeof(uint8_t)));
+        mf->_fd.readBytes((uint8_t *) &d, sizeof(uint8_t)));
         
         mf->setTimeSignature(n, 1 << d);  // denominator is 2^n
         mf->_fd.seek(mLen - 2, SeekCur);
