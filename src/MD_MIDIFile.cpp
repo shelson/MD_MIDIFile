@@ -286,6 +286,8 @@ int MD_MIDIFile::load(const char *fname)
 // Load the MIDI file into memory ready for processing
 // Return one of the E_* error codes
 {
+  char dat32buffer[4];
+  char dat16buffer[2];
   uint32_t dat32;
   uint16_t dat16;
 
@@ -296,13 +298,13 @@ int MD_MIDIFile::load(const char *fname)
 
   // open the file for reading
   SPIFFS.begin();
-  File _fd = SPIFFS.open(_fileName);
+  File _fd = SPIFFS.open(_fileName, "r");
 
   // Read the MIDI header
   // header chunk = "MThd" + <header_length:4> + <format:2> + <num_tracks:2> + <time_division:2>
   char h[MTHD_HDR_SIZE+1]; // Header characters + nul
 
-  _fd.readBytes((char *) &h, MTHD_HDR_SIZE+1);
+  _fd.readBytes((char *) &h, MTHD_HDR_SIZE);
   h[MTHD_HDR_SIZE] = '\0';
 
   if (strcmp(h, MTHD_HDR) != 0)
@@ -312,7 +314,8 @@ int MD_MIDIFile::load(const char *fname)
   }
 
   // read header size
-  _fd.readBytes((char *) &dat32, sizeof(uint32_t));
+  dat32 = readMultiByte(_fd, 4);
+  //_fd.readBytes((char *) &dat32, sizeof(uint32_t));
   if (dat32 != 6)   // must be 6 for this header
   {
     _fd.close();
