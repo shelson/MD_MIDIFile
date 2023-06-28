@@ -294,8 +294,10 @@ int MD_MIDIFile::load(const char *fname)
     return(E_NO_FILE);
 
   // open the file for reading
-  if (!_fd = SPIFFS.open(_fileName)); 
+  _fd = SPIFFS.open(_fileName)); 
+  if (_fd == nullptr) {
     return(E_NO_OPEN);
+  }
 
   // Read the MIDI header
   // header chunk = "MThd" + <header_length:4> + <format:2> + <num_tracks:2> + <time_division:2>
