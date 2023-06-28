@@ -336,7 +336,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
       case 0x00:  // Sequence Number
       {
         uint16_t x;
-        &mf->_fd.readBytes((char *) &x, sizeof(uint16_t));
+        mf->_fd.readBytes((char *) &x, sizeof(uint16_t));
 
         mev.data[0] = (x >> 8) & 0xFF;
         mev.data[1] = x & 0xFF;
@@ -347,12 +347,12 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
       break;
 
       case 0x20:  // Channel Prefix
-      &mf->_fd.readBytes((char *) &mev.data[0], sizeof(uint8_t));
+      mf->_fd.readBytes((char *) &mev.data[0], sizeof(uint8_t));
       DUMP("CHANNEL PREFIX ", mev.data[0]);
       break;
 
       case 0x21:  // Port Prefix
-      &mf->_fd.readBytes((char *) &mev.data[0], sizeof(uint8_t));
+      mf->_fd.readBytes((char *) &mev.data[0], sizeof(uint8_t));
       DUMP("PORT PREFIX ", mev.data[0]);
       break;
 
