@@ -467,7 +467,7 @@ int MD_MFTrack::load(uint8_t trackId, MD_MIDIFile *mf)
 
   // Row read track chunk size and in bytes. This is not really necessary 
   // since the track MUST end with an end of track meta event.
-  &mf->_fd.readBytes((char *) dat32, sizeof(uint32_t));
+  mf->_fd.readBytes((char *) &dat32, sizeof(uint32_t));
   _length = dat32;
 
   // save where we are in the file as this is the start of offset for this track
