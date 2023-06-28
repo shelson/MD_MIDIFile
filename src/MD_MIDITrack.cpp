@@ -466,7 +466,7 @@ int MD_MFTrack::load(uint8_t trackId, MD_MIDIFile *mf)
     h[MTRK_HDR_SIZE] = '\0';
 
     if (strcmp(h, MTRK_HDR) != 0)
-      return(0);
+      return(9);
   }
 
   // Row read track chunk size and in bytes. This is not really necessary 
