@@ -421,7 +421,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
         uint8_t minLen = min(ARRAY_SIZE(mev.data), mLen);
         
         for (uint8_t i = 0; i < minLen; ++i)
-          mf->_fd.readBytes((uint8_t *) mev.data[i], MB_BYTE); // read next
+          mf->_fd.readBytes((char *) mev.data[i], sizeof(char)); // read next
 
         mev.chars[minLen] = '\0'; // in case it is a string
         if (mLen > ARRAY_SIZE(mev.data))
@@ -458,7 +458,7 @@ int MD_MFTrack::load(uint8_t trackId, MD_MIDIFile *mf)
   {
     char    h[MTRK_HDR_SIZE+1]; // Header characters + nul
   
-    mf->_fd.readBytes(h, MTRK_HDR_SIZE+1);
+    mf->_fd.readBytes((char *) &h, MTRK_HDR_SIZE+1);
     h[MTRK_HDR_SIZE] = '\0';
 
     if (strcmp(h, MTRK_HDR) != 0)
@@ -467,7 +467,7 @@ int MD_MFTrack::load(uint8_t trackId, MD_MIDIFile *mf)
 
   // Row read track chunk size and in bytes. This is not really necessary 
   // since the track MUST end with an end of track meta event.
-  &mf->_fd.readBytes((uint32_t *) dat32, MB_LONG);
+  &mf->_fd.readBytes((char *) dat32, sizeof(uint32_t));
   _length = dat32;
 
   // save where we are in the file as this is the start of offset for this track
