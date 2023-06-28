@@ -965,22 +965,6 @@ public:
    */
   void setFilename(const char* aname) { _fileName = aname; }
 
-  /**
-   * Set the current folder for the SMF
-   *
-   * Sets the current working folder to the specified path.
-   * All subsequent simple (ie, not fully qualified) file names passed 
-   * to setFilename() are referenced to this folder location.
-   *
-   * The default file location is the root folder denoted by "/"
-   *
-   * \sa setFilename
-   *
-   * \param apath pointer to a string with the path name.
-   * \return No return data.
-   */
-  void setFileFolder(const char* apath) { if (apath != nullptr && _sd->chdir(apath)) _sd->chvol(); }
-
   /** 
    * Load the named SMF
    *
