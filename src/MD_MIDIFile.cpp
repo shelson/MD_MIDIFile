@@ -313,7 +313,7 @@ int MD_MIDIFile::load(const char *fname)
   }
 
   // read header size
-  _fd.readBytes((u_int32_t *) dat32, MB_LONG);
+  _fd.readBytes((uint32_t *) &dat32, sizeof(uint32_t));
   if (dat32 != 6)   // must be 6 for this header
   {
     _fd.close();
@@ -321,7 +321,7 @@ int MD_MIDIFile::load(const char *fname)
   }
   
   // read file type
-  _fd.readBytes(&dat16, MB_WORD);
+  _fd.readBytes((uint16_t *)&dat16, sizeof(uint16_t)));
   if ((dat16 != 0) && (dat16 != 1))
   {
     _fd.close();
@@ -330,7 +330,7 @@ int MD_MIDIFile::load(const char *fname)
   _format = dat16;
  
   // read number of tracks
-  _fd.readBytes(&dat16, MB_WORD);
+  _fd.readBytes((uint16_t *)&dat16, sizeof(uint16_t)));
   if ((_format == 0) && (dat16 != 1)) 
   {
     _fd.close();
@@ -344,7 +344,7 @@ int MD_MIDIFile::load(const char *fname)
   _trackCount = dat16;
 
   // read ticks per quarter note
-  _fd.readBytes(&dat16, MB_WORD);
+  _fd.readBytes((uint16_t *)&dat16, sizeof(uint16_t))));
   if (dat16 & 0x8000) // top bit set is SMTE format
   {
     int framespersecond = (dat16 >> 8) & 0x00ff;
