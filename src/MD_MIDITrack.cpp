@@ -421,7 +421,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
         uint8_t minLen = min(ARRAY_SIZE(mev.data), mLen);
         
         for (uint8_t i = 0; i < minLen; ++i)
-          mf->_fd.readBytes((char *) mev.data[i], sizeof(char)); // read next
+          mf->_fd.readBytes((char *) &mev.data[i], sizeof(char)); // read next
 
         mev.chars[minLen] = '\0'; // in case it is a string
         if (mLen > ARRAY_SIZE(mev.data))
