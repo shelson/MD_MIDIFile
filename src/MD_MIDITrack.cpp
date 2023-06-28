@@ -128,7 +128,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
   uint32_t mLen;
 
   // now we have to process this event
-  mf->_fd.readBytes((char *)&eType, sizeof(uint8_t));
+  mf->_fd.read(uint8_t *)&eType, sizeof(uint8_t));
 
   switch (eType)
   {
