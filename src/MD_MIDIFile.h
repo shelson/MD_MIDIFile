@@ -383,7 +383,8 @@ http://www.stephenhobley.com/blog/2011/03/14/the-last-darned-midi-interface-ill-
 #define _MDMIDIFILE_H
 
 #include <Arduino.h>
-#include <SdFat.h>
+//#include <SdFat.h>
+#include "SPIFFS.h"
 
 /**
  * \file
@@ -780,7 +781,7 @@ public:
    * \param psd Pointer to the SDFat object.
    * \return No return data.
    */
-  void begin(SDFAT *psd);
+  void begin(SPIFFS *psd);
 
   //--------------------------------------------------------------
   /** \name Methods for MIDI time base
@@ -1239,8 +1240,8 @@ protected:
 
   // file handling
   uint8_t   _selectSD;          ///< SDFat select line
-  SDFAT     *_sd;                ///< SDFat library descriptor supplied by calling program
-  SDFILE    _fd;                ///< SDFat file descriptor
+  SPIFFS     *_sd;                ///< SDFat library descriptor supplied by calling program
+  File    _fd;                ///< SDFat file descriptor
   MD_MFTrack   _track[MIDI_MAX_TRACKS]; ///< the track data for this file
 };
 

@@ -72,7 +72,7 @@ MD_MIDIFile::~MD_MIDIFile()
   close();
 }
 
-void MD_MIDIFile::begin(SDFAT *psd)
+void MD_MIDIFile::begin(SPIFFS *psd)
 {
   _sd = psd;
 }
