@@ -306,8 +306,8 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
         DUMPS("KEY SIGNATURE");
         int8_t sf;
         uint8_t mi;
-        mf->_fd.readBytes((int8 *) sf, sizeof(int8_t)));
-        mf->_fd.readBytes((uint8_t *) mi, sizeof(uint8_t)));
+        mf->_fd.readBytes((char *) sf, sizeof(int8_t)));
+        mf->_fd.readBytes((char *) mi, sizeof(uint8_t)));
         const char* aaa[] = {"Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F", "C", "G", "D", "A", "E", "B", "F#", "C#", "G#", "D#", "A#"};
 
         if (sf >= -7 && sf <= 7) 
