@@ -43,7 +43,6 @@ void MD_MIDIFile::initialise(void)
 
   // File handling
   setFilename("");
-  _sd = nullptr;
 
   // Set MIDI specified standard defaults
   setTicksPerQuarterNote(48); // 48 ticks per quarter note
