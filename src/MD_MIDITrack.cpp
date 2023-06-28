@@ -84,6 +84,8 @@ bool MD_MFTrack::getNextEvent(MD_MIDIFile *mf, uint16_t tickCount)
   if (_endOfTrack)
     return(false);
 
+  DUMP("\nStartOffset: ", _startOffset);
+  DUMP(" CurrOffset: ", _currOffset);
   // move the file pointer to where we left off
   mf->_fd.seek(_startOffset+_currOffset, SeekSet);
 
