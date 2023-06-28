@@ -336,7 +336,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
       case 0x00:  // Sequence Number
       {
         uint16_t x;
-        &mf->_fd.readBytes((uint16_t *) x, sizeof(MB_WORD));
+        &mf->_fd.readBytes((uint16_t *) x, MB_WORD);
 
         mev.data[0] = (x >> 8) & 0xFF;
         mev.data[1] = x & 0xFF;
@@ -347,12 +347,12 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
       break;
 
       case 0x20:  // Channel Prefix
-      mev.data[0] = readMultiByte(&mf->_fd, MB_BYTE);
+      &mf->_fd.readBytes((uint8_t *) mev.data[0], MB_BYTE)));
       DUMP("CHANNEL PREFIX ", mev.data[0]);
       break;
 
       case 0x21:  // Port Prefix
-      mev.data[0] = readMultiByte(&mf->_fd, MB_BYTE);
+      &mf->_fd.readBytes((uint8_t *) mev.data[0], MB_BYTE)));
       DUMP("PORT PREFIX ", mev.data[0]);
       break;
 
@@ -421,7 +421,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
         uint8_t minLen = min(ARRAY_SIZE(mev.data), mLen);
         
         for (uint8_t i = 0; i < minLen; ++i)
-          mev.data[i] = mf->_fd.readBytes(); // read next
+          mf->fd.readBytes((uint8_t *) mev.data[i], MB_BYTE); // read next
 
         mev.chars[minLen] = '\0'; // in case it is a string
         if (mLen > ARRAY_SIZE(mev.data))
@@ -467,7 +467,7 @@ int MD_MFTrack::load(uint8_t trackId, MD_MIDIFile *mf)
 
   // Row read track chunk size and in bytes. This is not really necessary 
   // since the track MUST end with an end of track meta event.
-  dat32 = readMultiByte(&mf->_fd, MB_LONG);
+  &mf->_fd.readBytes((uint32_t *) dat32, MB_LONG);
   _length = dat32;
 
   // save where we are in the file as this is the start of offset for this track
