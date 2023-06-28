@@ -128,7 +128,7 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
   uint32_t mLen;
 
   // now we have to process this event
-  eType = mf->_fd.readBytes();
+  mf->_fd.readBytes((char *)&eType, sizeof(uint8_t));
 
   switch (eType)
   {
@@ -143,8 +143,8 @@ void MD_MFTrack::parseEvent(MD_MIDIFile *mf)
     _mev.data[0] = eType;
     _mev.channel = _mev.data[0] & 0xf;  // mask off the channel
     _mev.data[0] = _mev.data[0] & 0xf0; // just the command byte
-    _mev.data[1] = mf->_fd.readBytes();
-    _mev.data[2] = mf->_fd.readBytes();
+    mf->_fd.readBytes((char *)&_mev.data[1], sizeof(char));
+    mf->_fd.readBytes((char *)&_mev.data[2], sizeof(char));
     DUMP("[MID2] Ch: ", _mev.channel);
     DUMPX(" Data: ", _mev.data[0]);
     DUMPX(" ", _mev.data[1]);
